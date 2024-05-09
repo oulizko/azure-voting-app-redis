@@ -11,4 +11,4 @@ metadata:
         targetPort: 5432
     selector:
       name: postgres-pod
-      app: demp-voting-app
+      app: demo-voting-app

@@ -13,4 +13,4 @@ metadata:
         nodePort: 30005
     selector:
       name:  voting-app-pod
-      app: demp-voting-app
+      app: demo-voting-app

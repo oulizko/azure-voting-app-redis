@@ -11,4 +11,4 @@ metadata:
         targetPort: 6379
     selector:
       name: redis-pod
-      app: demp-voting-app
+      app: demo-voting-app
