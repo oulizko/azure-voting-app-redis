@@ -3,10 +3,6 @@ on:
   push:
     paths:
       - "azure-vote-v2/**"
-    branches:
-    - main
-    pull_request:
-    workflow_dispatch:
 
 jobs:
   build:
