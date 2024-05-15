@@ -36,5 +36,5 @@ jobs:
           namespace: default
           manifests: |
             "kk/**"
-          images: ${{ secrets.registry }}.azurecr.io/azure-vote-v2:${{ github.sha }}
+          images: ${{ secrets.registry }}.azurecr.io/kk:${{ github.sha }}
           pull-images: true
