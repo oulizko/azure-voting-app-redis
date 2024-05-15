@@ -41,14 +41,14 @@ jobs:
         with:
           namespace: default
           manifests: |
-            kubernetes/postgres-pod.yaml
-            kubernetes/redis-pod.yaml
-            kubernetes/result-app-pod.yaml
-            kubernetes/voting-app-pod.yaml
-            kubernetes/worker-app-pod.yaml
-            kubernetes/postgres-service.yaml
-            kubernetes/redis-service.yaml
-            kubernetes/result-app-service.yaml
-            kubernetes/voting-app-service.yaml
+            postgres-pod.yaml
+            redis-pod.yaml
+            result-app-pod.yaml
+            voting-app-pod.yaml
+            worker-app-pod.yaml
+            postgres-service.yaml
+            redis-service.yaml
+            result-app-service.yaml
+            voting-app-service.yaml
           images: ${{ secrets.registry }}.azurecr.io/${{ secrets.repository }}/azure-vote-v2:${{ github.sha }}
           pull-images: true
