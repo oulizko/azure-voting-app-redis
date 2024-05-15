@@ -1,4 +1,5 @@
 name: build_deploy_aks_azure-vote-v2
+
 on:
   push:
     paths:
@@ -10,6 +11,8 @@ jobs:
     steps:
       - name: Checkout source code 
         uses: actions/checkout@v3
+
+      # Azure Container Registry (ACR) build
       - name: ACR build
         id: build-push-acr
         uses: azure/acr-build@v1
@@ -19,37 +22,45 @@ jobs:
           tenant: ${{ secrets.tenant }}
           registry: ${{ secrets.registry }}
           repository: ${{ secrets.repository }}
-          image:  azure-vote-v2
+          image: azure-vote-v2
           branch: master
           tag: ${{ github.sha }}
+
+      # Azure login
       - name: Azure login
         id: login
         uses: azure/login@v1.4.3
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      # Set AKS context
       - name: Set AKS context
         id: set-context
         uses: azure/aks-set-context@v3
         with:
-          resource-group: '${{ secrets.resource_group }}' 
-          cluster-name: '${{ secrets.cluster_name }}'
+          resource-group: ${{ secrets.resource_group }}
+          cluster-name: ${{ secrets.cluster_name }}
+
+      # Setup kubectl
       - name: Setup kubectl
         id: install-kubectl
         uses: azure/setup-kubectl@v3
+
+      # Deploy to AKS
       - name: Deploy to AKS
         id: deploy-aks
         uses: Azure/k8s-deploy@v4
         with:
-          namespace: 'default'
+          namespace: default
           manifests: |
-             postgres-pod.yaml
-             redis-pod.yaml
-             result-app-pod.yaml
-             voting-app-pod.yaml
-             worker-app-pod.yaml
-             postgres-service.yaml
-             redis-service.yaml
-             result-app-service.yaml
-             voting-app-service.yaml
-          images: '${{ secrets.registry }}.azurecr.io/${{ secrets.repository }}/azure-vote-v2:${{ github.sha }}'
-          pull-images: true 
+            kubernetes/postgres-pod.yaml
+            kubernetes/redis-pod.yaml
+            kubernetes/result-app-pod.yaml
+            kubernetes/voting-app-pod.yaml
+            kubernetes/worker-app-pod.yaml
+            kubernetes/postgres-service.yaml
+            kubernetes/redis-service.yaml
+            kubernetes/result-app-service.yaml
+            kubernetes/voting-app-service.yaml
+          images: ${{ secrets.registry }}.azurecr.io/${{ secrets.repository }}/azure-vote-v2:${{ github.sha }}
+          pull-images: true
