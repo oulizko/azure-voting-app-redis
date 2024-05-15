@@ -12,19 +12,7 @@ jobs:
       - name: Checkout source code 
         uses: actions/checkout@v3
 
-      # Azure Container Registry (ACR) build
-      - name: ACR build
-        id: build-push-acr
-        uses: azure/acr-build@v1
-        with:
-          service_principal: ${{ secrets.service_principal }}
-          service_principal_password: ${{ secrets.service_principal_password }}
-          tenant: ${{ secrets.tenant }}
-          registry: ${{ secrets.registry }}
-          repository: ${{ secrets.repository }}
-          image: azure-vote-v2
-          branch: master
-          tag: ${{ github.sha }}
+      # Azure Container Registry (ACR) build - Remove this step as it's no longer needed
 
       # Azure login
       - name: Azure login
