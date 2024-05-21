@@ -1,4 +1,4 @@
-name: build_deploy_aks_azure-vote-v2
+name: kk
 
 on:
   push:
